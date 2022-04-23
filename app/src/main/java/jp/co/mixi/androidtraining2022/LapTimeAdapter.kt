@@ -18,8 +18,6 @@ class LapTimeAdapter : ListAdapter<LapTime, LapTimeAdapter.ViewHolder>(DiffCallb
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val lapTime = getItem(position)
 
-        holder.binding.lapNumber.text = lapTime.number.toString()
-        holder.binding.lapTime.text = "TODO"
     }
 
     class ViewHolder(
