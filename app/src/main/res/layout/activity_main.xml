@@ -37,11 +37,7 @@
         style="@style/TextAppearance.Material3.DisplayLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time_initial"
-        app:layout_constraintBottom_toTopOf="@+id/secondary_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/time_initial" />
 
     <LinearLayout
         android:id="@+id/recycler_view_header"
