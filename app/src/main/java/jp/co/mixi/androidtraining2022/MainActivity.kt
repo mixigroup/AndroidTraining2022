@@ -15,5 +15,31 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 右側ボタンの設定を状況によって変更する
+        viewModel.primaryButtonType.observe(this) { type ->
+            when (type) {
+                PrimaryButtonType.TIMER_START -> {
+                    binding.primaryButton.setText(R.string.start)
+                    binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary)
+                    binding.primaryButton.setOnClickListener {
+                        viewModel.state.value = State.START
+                    }
+                }
+                PrimaryButtonType.TIMER_STOP -> {
+                    binding.primaryButton.setText(R.string.stop)
+                    binding.primaryButton.backgroundTintList = getColorStateList(R.color.accent)
+                    binding.primaryButton.setOnClickListener {
+                        viewModel.state.value = State.STOP
+                    }
+                }
+                PrimaryButtonType.TIMER_CLEAR -> {
+                    binding.primaryButton.setText(R.string.clear)
+                    binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
+                    binding.primaryButton.setOnClickListener {
+                        viewModel.state.value = State.CLEAR
+                    }
+                }
+            }
+        }
     }
 }
