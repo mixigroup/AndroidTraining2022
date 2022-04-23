@@ -14,5 +14,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val adapter = LapTimeAdapter()
+        binding.recyclerView.adapter = adapter
+        val lapTimeList = mutableListOf<LapTime>()
+
+        binding.primaryButton.setOnClickListener {
+            val lapTime = LapTime(lapTimeList.size + 1, 0)
+            lapTimeList.add(lapTime)
+            adapter.submitList(lapTimeList.toList())
+        }
     }
 }
