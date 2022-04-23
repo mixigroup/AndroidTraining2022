@@ -44,4 +44,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    // TextViewに表示する文字列。currentTimeを元に生成する。
+    val currentTimeText = currentTime.map { currentTime ->
+        val minute = currentTime / (1000 * 60)
+        val second = currentTime / 1000 % 60
+        val milliSecond = currentTime % 1000
+        String.format(
+            "%02d:%02d.%02d",
+            minute,
+            second,
+            milliSecond / 10 // 上位2桁を表示するため
+        )
+    }
 }
