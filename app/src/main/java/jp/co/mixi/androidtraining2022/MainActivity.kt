@@ -15,6 +15,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ラップタイムのAdapterを準備
+        val adapter = LapTimeAdapter()
+        binding.recyclerView.adapter = adapter
+
+        // FIXME 一時的にデータを入れておく
+        adapter.submitList(
+            List(10) {
+                LapTime(it + 1, 0)
+            }
+        )
+
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {
             binding.timeText.text = it
