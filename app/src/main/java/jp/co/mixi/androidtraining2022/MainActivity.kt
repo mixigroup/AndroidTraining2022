@@ -15,11 +15,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 経過時間を変更
-        viewModel.currentTimeText.observe(this) {
-            binding.timeText.text = it
-        }
-
         // 右側ボタンの設定を状況によって変更する
         viewModel.primaryButtonType.observe(this) { type ->
             when (type) {
