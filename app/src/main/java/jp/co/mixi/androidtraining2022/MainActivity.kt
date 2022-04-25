@@ -57,5 +57,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.secondaryButton.setOnClickListener {
+            if (binding.root.currentState == R.id.start) {
+                binding.root.transitionToEnd()
+            } else {
+                binding.root.transitionToStart()
+            }
+        }
     }
 }
