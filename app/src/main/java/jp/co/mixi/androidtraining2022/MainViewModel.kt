@@ -11,7 +11,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // 右側のボタンのアクションタイプ。タイマーの状態によって変化させる
     val primaryButtonType = state.map { state ->
-        TODO()
+        when (state) {
+            State.CLEAR -> PrimaryButtonType.TIMER_START
+            State.START -> PrimaryButtonType.TIMER_STOP
+            State.STOP -> PrimaryButtonType.TIMER_CLEAR
+        }
     }
 
     // タイマーの開始時刻(ミリ秒)
