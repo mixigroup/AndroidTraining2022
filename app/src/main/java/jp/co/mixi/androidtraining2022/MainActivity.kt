@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
                 LapTime(it + 1, 0)
             }
         )
+        viewModel.nowLaptime.observe(this){
+            binding.
+        }
 
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 PrimaryButtonType.TIMER_START -> {
                     binding.primaryButton.setText(R.string.start)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary)
+                    binding.secondaryButton.isEnabled = false
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.START
                     }
@@ -44,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 PrimaryButtonType.TIMER_STOP -> {
                     binding.primaryButton.setText(R.string.stop)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.accent)
+                    binding.secondaryButton.isEnabled = true
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.STOP
                     }
@@ -51,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                 PrimaryButtonType.TIMER_CLEAR -> {
                     binding.primaryButton.setText(R.string.clear)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
+                    binding.secondaryButton.isEnabled = false
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.CLEAR
                     }
