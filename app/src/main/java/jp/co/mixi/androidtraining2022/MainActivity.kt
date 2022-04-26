@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
                 LapTime(it + 1, 0)
             }
         )
+        viewModel.nowLaptime.observe(this){
+            binding.
+        }
 
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {

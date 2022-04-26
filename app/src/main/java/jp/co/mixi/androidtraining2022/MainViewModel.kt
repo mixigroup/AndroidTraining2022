@@ -57,4 +57,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             milliSecond / 10 // 上位2桁を表示するため
         )
     }
+
+    val nowLaptime = currentTime
 }
