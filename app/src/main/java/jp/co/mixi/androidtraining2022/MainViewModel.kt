@@ -13,8 +13,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val primaryButtonType = state.map { state ->
         when (state) {
             State.CLEAR -> PrimaryButtonType.TIMER_START
+
             State.START -> PrimaryButtonType.TIMER_STOP
             State.STOP -> PrimaryButtonType.TIMER_CLEAR
+        }
+    }
+
+    val secondaryButtonType = state.map { state ->
+        when (state) {
+            State.START -> SecondaryButtonType.Enabled
+            State.CLEAR -> SecondaryButtonType.Disabled
+            State.STOP -> {}
         }
     }
 

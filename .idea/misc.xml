@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1712962962962963" />
         <entry key="app/src/main/res/drawable/lap_time_item_bg.xml" value="0.372" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/lap_time_item.xml" value="0.45471014492753625" />
         <entry key="app/src/main/res/xml/main_motion_scene.xml" value="0.40625" />
       </map>
