@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
                         viewModel.resetLap()
                     }
                 }
+                else -> {
+                    /* nothing to do */
+                }
             }
         }
 

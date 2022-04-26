@@ -11,6 +11,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // 右側のボタンのアクションタイプ。タイマーの状態によって変化させる
     val primaryButtonType = state.map { state ->
+        requireNotNull(state) { "LiveDataくんはJava実装なので明確なNotNull定義じゃない" }
         when (state) {
             State.CLEAR -> PrimaryButtonType.TIMER_START
             State.START -> PrimaryButtonType.TIMER_STOP
@@ -40,6 +41,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 State.STOP -> {
                     // do nothing
+                }
+                else -> {
+                    throw IllegalStateException("LiveDataくんはJava実装なので明確なNotNull定義じゃない")
                 }
             }
         }
