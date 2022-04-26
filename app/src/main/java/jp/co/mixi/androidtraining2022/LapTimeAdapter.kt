@@ -19,7 +19,9 @@ class LapTimeAdapter : ListAdapter<LapTime, LapTimeAdapter.ViewHolder>(DiffCallb
         val lapTime = getItem(position)
 
         holder.binding.lapNumber.text = lapTime.number.toString()
-        holder.binding.lapTime.text = "TODO"
+        //holder.binding.lapTime.text = "TODO"
+
+        val time = lapTime.time
 
         val minute = time / (1000 * 60)
         val second = time / 1000 % 60
