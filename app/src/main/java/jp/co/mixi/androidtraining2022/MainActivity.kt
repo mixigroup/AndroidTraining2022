@@ -19,12 +19,14 @@ class MainActivity : AppCompatActivity() {
         val adapter = LapTimeAdapter()
         binding.recyclerView.adapter = adapter
 
+        val LapList = mutableListOf<LapTime>()
+
         // FIXME 一時的にデータを入れておく
-        adapter.submitList(
-            List(10) {
-                LapTime(it + 1, 0)
-            }
-        )
+//        adapter.submitList(
+//            List(10) {
+//                LapTime(it + 1, 0)
+//            }
+//        )
 
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {
@@ -53,13 +55,29 @@ class MainActivity : AppCompatActivity() {
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.CLEAR
+                        LapList.clear()
+                        binding.root.transitionToStart()
                     }
                 }
             }
         }
 
+        viewModel.secondaryButtonType.observe(this) { type ->
+            when (type) {
+                SecondaryButtonType.Enabled -> {
+                    binding.secondaryButton.isEnabled = true
+                }
+                SecondaryButtonType.Disabled -> {
+                    binding.secondaryButton.isEnabled = false
+                }
+            }
+        }
+
         binding.secondaryButton.setOnClickListener {
-            if (binding.root.currentState == R.id.start) {
+            LapList.add(LapTime(LapList.size + 1, viewModel.currentTime.value!!))
+            adapter.submitList(LapList)
+
+            if (LapList.size > 0) {
                 binding.root.transitionToEnd()
             } else {
                 binding.root.transitionToStart()
