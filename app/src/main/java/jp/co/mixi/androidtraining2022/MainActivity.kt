@@ -69,5 +69,9 @@ class MainActivity : AppCompatActivity() {
                 binding.root.transitionToStart()
             }
         }
+
+        viewModel.state.observe(this) {
+            binding.secondaryButton.isEnabled = it == State.START
+        }
     }
 }
