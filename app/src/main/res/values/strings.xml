@@ -9,4 +9,7 @@
     <string name="lap">ラップ</string>
     <string name="lap_number">ラップNo.</string>
     <string name="lap_time">ラップタイム</string>
+
+    <string name="limit_jp">合計活動時間</string>
+    <string name="limit_en">ACTIVE TIME:</string>
 </resources>
