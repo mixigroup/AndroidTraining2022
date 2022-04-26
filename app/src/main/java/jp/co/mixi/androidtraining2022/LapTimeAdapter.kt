@@ -19,7 +19,7 @@ class LapTimeAdapter : ListAdapter<LapTime, LapTimeAdapter.ViewHolder>(DiffCallb
         val lapTime = getItem(position)
 
         holder.binding.lapNumber.text = lapTime.number.toString()
-        holder.binding.lapTime.text = lapTime.time.toString()
+        holder.binding.lapTime.text = lapTime.time
     }
 
     class ViewHolder(
