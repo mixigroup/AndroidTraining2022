@@ -8,6 +8,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // 現在のタイマーの状態
     val state = MutableLiveData<State>(State.CLEAR)
+    val lapTimes = mutableListOf<LapTime>()
 
     // 右側のボタンのアクションタイプ。タイマーの状態によって変化させる
     val primaryButtonType = state.map { state ->
