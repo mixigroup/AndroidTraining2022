@@ -14,16 +14,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.secondaryButton.isEnabled = false
 
         // ラップタイムのAdapterを準備
         val adapter = LapTimeAdapter()
         binding.recyclerView.adapter = adapter
 
-        // FIXME 一時的にデータを入れておく
+        data class LapTimeString(
+                val number: Int,
+                val time: String
+        )
+
+        val lapTimeList = mutableListOf<LapTime>()
+
         adapter.submitList(
-            List(10) {
-                LapTime(it + 1, 0)
-            }
+            lapTimeList
         )
 
         // 経過時間を変更
@@ -39,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary)
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.START
+                        binding.secondaryButton.isEnabled = true
                     }
                 }
                 PrimaryButtonType.TIMER_STOP -> {
@@ -46,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.accent)
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.STOP
+                        binding.secondaryButton.isEnabled = false
                     }
                 }
                 PrimaryButtonType.TIMER_CLEAR -> {
@@ -53,17 +60,19 @@ class MainActivity : AppCompatActivity() {
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.CLEAR
+                        binding.secondaryButton.isEnabled = false
+                        lapTimeList.clear()
+                        binding.root.transitionToStart()
                     }
                 }
             }
         }
 
         binding.secondaryButton.setOnClickListener {
-            if (binding.root.currentState == R.id.start) {
-                binding.root.transitionToEnd()
-            } else {
-                binding.root.transitionToStart()
-            }
+            binding.root.transitionToEnd()
+            val currentTime = viewModel.currentTime.value ?: 0L
+            val lapTime = LapTime(lapTimeList.size + 1, currentTime)
+            lapTimeList.add(lapTime)
         }
     }
 }
