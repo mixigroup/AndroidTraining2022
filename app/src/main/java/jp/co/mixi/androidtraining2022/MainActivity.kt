@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.primaryButtonType.observe(this) { type ->
             when (type) {
                 PrimaryButtonType.TIMER_START -> {
+                    binding.secondaryButton.isEnabled = false
                     binding.primaryButton.setText(R.string.start)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary)
                     binding.primaryButton.setOnClickListener {
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 PrimaryButtonType.TIMER_STOP -> {
+                    binding.secondaryButton.isEnabled = true
                     binding.primaryButton.setText(R.string.stop)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.accent)
                     binding.primaryButton.setOnClickListener {
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 PrimaryButtonType.TIMER_CLEAR -> {
+                    binding.secondaryButton.isEnabled = false
                     binding.primaryButton.setText(R.string.clear)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
                     binding.primaryButton.setOnClickListener {
@@ -55,10 +58,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.secondaryButton.setOnClickListener {
-            if (viewModel.state.value == State.START) {
-                list.add(LapTime(list.size + 1, viewModel.currentTimeText.value!!))
-                checkList(binding, list, lapTimeAdapter)
-            }
+            list.add(LapTime(list.size + 1, viewModel.currentTimeText.value!!))
+            checkList(binding, list, lapTimeAdapter)
         }
     }
 
