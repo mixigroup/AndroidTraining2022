@@ -57,4 +57,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             milliSecond / 10 // 上位2桁を表示するため
         )
     }
+
+    private val _lapList = MutableLiveData<List<LapTime>>(emptyList())
+    val lapList: LiveData<List<LapTime>> = _lapList
+    val lapListExist = _lapList.map { it.isNotEmpty() }
+        .distinctUntilChanged()
+
+    fun addLap() {
+        val current = currentTime.value ?: return
+        val oldList = (_lapList.value ?: emptyList()).toMutableList()
+        val nowLap = LapTime(oldList.size + 1, current)
+
+        _lapList.value = oldList + nowLap
+    }
+
+    fun resetLap() {
+        _lapList.value = emptyList()
+    }
 }
