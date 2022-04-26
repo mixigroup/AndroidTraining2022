@@ -19,12 +19,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = LapTimeAdapter()
         binding.recyclerView.adapter = adapter
 
-        // FIXME 一時的にデータを入れておく
-        adapter.submitList(
-            List(10) {
-                LapTime(it + 1, 0)
-            }
-        )
+        viewModel.lapList.observe(this, adapter::submitList)
 
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {
@@ -50,20 +45,33 @@ class MainActivity : AppCompatActivity() {
                 }
                 PrimaryButtonType.TIMER_CLEAR -> {
                     binding.primaryButton.setText(R.string.clear)
-                    binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
+                    binding.primaryButton.backgroundTintList =
+                        getColorStateList(R.color.primary_variant)
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.CLEAR
+                        viewModel.resetLap()
                     }
+                }
+                else -> {
+                    /* nothing to do */
                 }
             }
         }
 
         binding.secondaryButton.setOnClickListener {
-            if (binding.root.currentState == R.id.start) {
+            viewModel.addLap()
+        }
+
+        viewModel.lapListExist.observe(this) {
+            if (it) {
                 binding.root.transitionToEnd()
             } else {
                 binding.root.transitionToStart()
             }
+        }
+
+        viewModel.state.observe(this) {
+            binding.secondaryButton.isEnabled = it == State.START
         }
     }
 }
