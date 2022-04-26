@@ -19,7 +19,17 @@ class LapTimeAdapter : ListAdapter<LapTime, LapTimeAdapter.ViewHolder>(DiffCallb
         val lapTime = getItem(position)
 
         holder.binding.lapNumber.text = lapTime.number.toString()
-        holder.binding.lapTime.text = "TODO"
+        val currentTime = lapTime.time
+        val minute = currentTime / (1000 * 60)
+        val second = currentTime / 1000 % 60
+        val milliSecond = currentTime % 1000
+        val time = String.format(
+            "%02d:%02d.%02d",
+            minute,
+            second,
+            milliSecond / 10 // 上位2桁を表示するため
+        )
+        holder.binding.lapTime.text = time
     }
 
     class ViewHolder(

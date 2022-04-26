@@ -15,7 +15,11 @@
             motion:layout_constraintBottom_toTopOf="@+id/secondary_button"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintTop_toTopOf="parent" >
+            <CustomAttribute
+                motion:attributeName="color"
+                motion:customColorValue="#FFFFFF" />
+        </Constraint>
         <Constraint
             android:id="@+id/recycler_view_header"
             android:layout_width="0dp"

@@ -4,8 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_grad"
     app:layoutDescription="@xml/main_motion_scene"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:scaleX="800"
+        android:scaleY="1600"
+        app:srcCompat="@android:drawable/screen_background_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/time_text_header"
+        style="@style/TextAppearance.Material3.DisplayLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/limit_jp"
+        android:textSize="30sp"
+        android:textColor="@color/eve_yellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/secondary_button"
@@ -38,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
         android:text="@string/time_initial"
+        android:textColor="@color/eve_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -90,6 +116,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recycler_view_header"
-        tools:listitem="@layout/lap_time_item" />
+        tools:listitem="@layout/lap_time_item" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
