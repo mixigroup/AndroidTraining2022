@@ -9,6 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel>()
+    private val list = mutableListOf<LapTime>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,15 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // ラップタイムのAdapterを準備
-        val adapter = LapTimeAdapter()
-        binding.recyclerView.adapter = adapter
-
-        // FIXME 一時的にデータを入れておく
-        adapter.submitList(
-            List(10) {
-                LapTime(it + 1, 0)
-            }
-        )
+        val lapTimeAdapter = LapTimeAdapter()
+        binding.recyclerView.adapter = lapTimeAdapter
 
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {
@@ -53,17 +47,27 @@ class MainActivity : AppCompatActivity() {
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
                     binding.primaryButton.setOnClickListener {
                         viewModel.state.value = State.CLEAR
+                        list.clear()
+                        checkList(binding,list,lapTimeAdapter)
                     }
                 }
             }
         }
 
         binding.secondaryButton.setOnClickListener {
-            if (binding.root.currentState == R.id.start) {
-                binding.root.transitionToEnd()
-            } else {
-                binding.root.transitionToStart()
+            if (viewModel.state.value == State.START) {
+                list.add(LapTime(list.size + 1, viewModel.currentTimeText.value!!))
+                checkList(binding, list, lapTimeAdapter)
             }
+        }
+    }
+
+    fun checkList(activity: ActivityMainBinding ,list:MutableList<LapTime>, adapter:LapTimeAdapter){
+        if(list.size != 0){
+            adapter.submitList(list)
+            activity.root.transitionToEnd()
+        }else{
+            activity.root.transitionToStart()
         }
     }
 }
