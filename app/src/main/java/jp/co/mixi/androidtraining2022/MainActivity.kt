@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.secondaryButton.setOnClickListener {
-            list.add(LapTime(list.size + 1, viewModel.currentTimeText.value!!))
+            list.add(LapTime(list.size + 1, viewModel.currentTimeText.value ?: ""))
             checkList(binding, list, lapTimeAdapter)
         }
     }
