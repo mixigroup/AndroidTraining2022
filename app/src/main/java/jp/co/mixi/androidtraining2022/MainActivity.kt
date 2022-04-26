@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import jp.co.mixi.androidtraining2022.databinding.ActivityMainBinding
+import kotlin.time.Duration.Companion.milliseconds
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,13 +19,7 @@ class MainActivity : AppCompatActivity() {
         // ラップタイムのAdapterを準備
         val adapter = LapTimeAdapter()
         binding.recyclerView.adapter = adapter
-
-        // FIXME 一時的にデータを入れておく
-        adapter.submitList(
-            List(10) {
-                LapTime(it + 1, 0)
-            }
-        )
+        val lapTimeList = mutableListOf<LapTime>()
 
         // 経過時間を変更
         viewModel.currentTimeText.observe(this) {
@@ -35,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.primaryButtonType.observe(this) { type ->
             when (type) {
                 PrimaryButtonType.TIMER_START -> {
+                    lapTimeList.removeIf { true }
                     binding.secondaryButton.isEnabled = false
                     binding.primaryButton.setText(R.string.start)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary)
@@ -55,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                     binding.primaryButton.setText(R.string.clear)
                     binding.primaryButton.backgroundTintList = getColorStateList(R.color.primary_variant)
                     binding.primaryButton.setOnClickListener {
+                        binding.root.transitionToStart()
                         viewModel.state.value = State.CLEAR
                     }
                 }
@@ -63,10 +60,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.secondaryButton.setOnClickListener {
             if (binding.root.currentState == R.id.start) {
-                binding.root.transitionToEnd()
-            } else {
-                binding.root.transitionToStart()
+                if(viewModel.state.value == State.START)
+                    binding.root.transitionToEnd()
             }
+            val v = viewModel.currentTime.value!!
+            val lapTime = LapTime(lapTimeList.size + 1, v)
+            lapTimeList.add(lapTime)
+            adapter.submitList(lapTimeList.toList())
+
         }
     }
 }
