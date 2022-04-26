@@ -17,9 +17,17 @@ class LapTimeAdapter : ListAdapter<LapTime, LapTimeAdapter.ViewHolder>(DiffCallb
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val lapTime = getItem(position)
+        val minute = lapTime.time / (1000 * 60)
+        val second = lapTime.time / 1000 % 60
+        val milliSecond = lapTime.time % 1000
 
         holder.binding.lapNumber.text = lapTime.number.toString()
-        holder.binding.lapTime.text = "TODO"
+        holder.binding.lapTime.text = String.format(
+            "%02d:%02d.%02d",
+            minute,
+            second,
+            milliSecond / 10 // 上位2桁を表示するため
+        )
     }
 
     class ViewHolder(
